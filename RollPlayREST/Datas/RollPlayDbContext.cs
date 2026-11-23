@@ -5,6 +5,7 @@ namespace RollPlayREST.Datas
 {
     public class RollPlayDbContext : DbContext
     {
+        public DbSet<RollPlayREST.Models.DiceGame> DiceGame { get; set; } = default!;
         public RollPlayDbContext(DbContextOptions<RollPlayDbContext> options) : base(options)
         {
 
