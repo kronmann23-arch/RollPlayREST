@@ -1,14 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using RollPlayREST.Datas;
+using RollPlayREST.Models;
+using RollPlayREST.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                       throw new InvalidOperationException();
+
+// DbContext
+builder.Services.AddDbContext<RollPlayDbContext>(
+    options => options.UseSqlServer(connectionString)
+);
+
+builder.Services.AddScoped(typeof(IRepository<Dice>), typeof(DiceRepository));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
