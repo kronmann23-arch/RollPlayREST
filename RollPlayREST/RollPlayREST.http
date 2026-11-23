@@ -1,0 +1,6 @@
+@RollPlayREST_HostAddress = http://localhost:5077
+
+GET {{RollPlayREST_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
