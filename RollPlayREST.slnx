@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="RollPlayREST/RollPlayREST.csproj" />
+  <Project Path="XunitTestRollPlay/XunitTestRollPlay.csproj" />
 </Solution>
