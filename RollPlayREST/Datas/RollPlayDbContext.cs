@@ -13,5 +13,6 @@ namespace RollPlayREST.Datas
 
         public DbSet<Dice> Dices { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<DiceGame> DiceGames { get; set; } = null!;
     }
 }

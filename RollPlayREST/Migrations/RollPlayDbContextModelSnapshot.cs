@@ -29,12 +29,30 @@ namespace RollPlayREST.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("DiceGameId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Sides")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DiceGameId");
+
                     b.ToTable("Dices");
+                });
+
+            modelBuilder.Entity("RollPlayREST.Models.DiceGame", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DiceGame");
                 });
 
             modelBuilder.Entity("RollPlayREST.Models.User", b =>
@@ -44,6 +62,9 @@ namespace RollPlayREST.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("DiceGameId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -55,7 +76,30 @@ namespace RollPlayREST.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DiceGameId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RollPlayREST.Models.Dice", b =>
+                {
+                    b.HasOne("RollPlayREST.Models.DiceGame", null)
+                        .WithMany("NumberOfDice")
+                        .HasForeignKey("DiceGameId");
+                });
+
+            modelBuilder.Entity("RollPlayREST.Models.User", b =>
+                {
+                    b.HasOne("RollPlayREST.Models.DiceGame", null)
+                        .WithMany("Players")
+                        .HasForeignKey("DiceGameId");
+                });
+
+            modelBuilder.Entity("RollPlayREST.Models.DiceGame", b =>
+                {
+                    b.Navigation("NumberOfDice");
+
+                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }
